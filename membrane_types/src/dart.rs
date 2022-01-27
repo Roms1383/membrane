@@ -149,7 +149,7 @@ fn cast_dart_type_to_c(str_ty: &str, variable: &str, ty: &Type) -> String {
     "String" => {
       format!(
         r#"(){{
-          final ptr = {variable}.toNativeUtf8().cast<Int8>();
+          final ptr = {variable}.toNativeUtf8().cast<Char>();
           _toFree.add(ptr);
           return ptr;
         }}()"#,
@@ -173,7 +173,7 @@ fn cast_dart_type_to_c(str_ty: &str, variable: &str, ty: &Type) -> String {
       if ({variable} == null) {{
         return nullptr;
       }}
-      final ptr = {variable}.toNativeUtf8().cast<Int8>();
+      final ptr = {variable}.toNativeUtf8().cast<Char>();
       _toFree.add(ptr);
       return ptr;
     }}()"#,
@@ -187,7 +187,7 @@ fn cast_dart_type_to_c(str_ty: &str, variable: &str, ty: &Type) -> String {
       }}
       final ptr = calloc<Uint8>();
       _toFree.add(ptr);
-      ptr.asTypedList(1).setAll(0, [{variable} ? 1 : 0]);
+      ptr.value = {variable} ? 1 : 0;
       return ptr;
     }}()"#,
       variable = variable.to_mixed_case()
@@ -197,9 +197,9 @@ fn cast_dart_type_to_c(str_ty: &str, variable: &str, ty: &Type) -> String {
       if ({variable} == null) {{
         return nullptr;
       }}
-      final ptr = calloc<Int64>();
+      final ptr = calloc<Long>();
       _toFree.add(ptr);
-      ptr.asTypedList(1).setAll(0, [{variable}]);
+      ptr.value = {variable};
       return ptr;
     }}()"#,
       variable = variable.to_mixed_case()
@@ -211,7 +211,7 @@ fn cast_dart_type_to_c(str_ty: &str, variable: &str, ty: &Type) -> String {
       }}
       final ptr = calloc<Double>();
       _toFree.add(ptr);
-      ptr.asTypedList(1).setAll(0, [{variable}]);
+      ptr.value = {variable};
       return ptr;
     }}()"#,
       variable = variable.to_mixed_case()

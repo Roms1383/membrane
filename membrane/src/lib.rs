@@ -417,7 +417,7 @@ impl<'a> Membrane {
   logging: ^1.0.2
 
 dev_dependencies:
-  ffigen: ^4.1.0
+  ffigen: ^5.0.0-dev.0
 "#;
       std::fs::write(path, pubspec + extra_deps).expect("pubspec could not be written");
     }
@@ -686,7 +686,7 @@ impl Function {
     final List<Pointer> _toFree = [];{fn_transforms}
     final _port = ReceivePort()..timeout(const Duration(milliseconds: 1000));
 
-    Pointer<Int32>? _taskHandle;
+    Pointer<Int>? _taskHandle;
     try {{
       if (!_loggingDisabled) {{
         _log.fine('Calling Rust `{fn_name}` via C `{extern_c_fn_name}`');
