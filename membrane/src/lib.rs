@@ -413,7 +413,7 @@ impl<'a> Membrane {
         .to_string();
 
       let extra_deps = r#"
-  ffi: ^1.1.2
+  ffi: ^1.2.0-dev
   logging: ^1.0.2
 
 dev_dependencies:
